@@ -1,6 +1,3 @@
-" I prefer NERDTree at the right side
-let NERDTreeWinPos = 'right'
-
 " Close Vim if the only window alive is NERDTree
 autocmd bufenter * call CloseNERDTreeIfIsLastWindow()
 function! CloseNERDTreeIfIsLastWindow()

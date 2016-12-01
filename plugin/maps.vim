@@ -113,3 +113,9 @@ vnoremap <leader>a> :Tabularize /=><CR>
 nnoremap <leader>a> :Tabularize /=><CR>
 nnoremap <leader>a: :Tabularize /:\zs<CR>
 vnoremap <leader>a: :Tabularize /:\zs<CR>
+
+
+map k gk
+map j gj
+
+call togglebg#map("<F5>")
