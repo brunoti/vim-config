@@ -1,10 +1,3 @@
-syntax on
-filetype plugin indent on
-filetype plugin on
-set wildmenu
-set wildmode=list:longest,full
-set formatoptions=qrn1
-
 scriptencoding utf-8
 
 set encoding=utf-8
