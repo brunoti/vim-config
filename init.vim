@@ -3,6 +3,7 @@ scriptencoding utf-8
 set encoding=utf-8
 
 set termguicolors
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 set expandtab    " default to spaces instead of tabs
 set shiftwidth=2 " softtabs are 2 spaces for expandtab
@@ -239,8 +240,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 
-Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
-
 Plug 'pbogut/deoplete-padawan', {
       \ 'do': 'composer global require mkusher/padawan',
       \ 'for': 'php' }
@@ -256,4 +255,3 @@ Plug 'Shougo/echodoc.vim'
 Plug 'Shougo/context_filetype.vim'
 
 call plug#end()
-
