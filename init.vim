@@ -35,15 +35,74 @@ set linebreak
 let mapleader=','
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-set wildignore+=*/node_modules/*
+set wildignore+=*/node_modules/**
 set wildignore+=*/vendor/*
+set wildignore+=*/bower_components/**
+set wildignore+=*/libs/**
+set wildignore+=*/**/*.doc*
+set wildignore+=*/**/*.psd*
+set wildignore+=*/**/*.jpg*
+set wildignore+=*/**/*.jpeg*
+set wildignore+=*/**/*.png*
+set wildignore+=*/**/*.gif*
+set wildignore+=*/**/*.gif*
+set wildignore+=*/docs/**
+
+autocmd FileType php setl ofu=phpcomplete#CompletePHP
+autocmd FileType ruby,eruby setl ofu=rubycomplete#Complete
+autocmd FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
+autocmd FileType c setl ofu=ccomplete#CompleteCpp
+autocmd FileType css setl ofu=csscomplete#CompleteCSS
+autocmd BufRead,BufNewFile *.htm set ft=html.twig
+autocmd BufNewFile,BufRead *.blade.php set filetype=blade.html.php | set syntax=blade
+autocmd BufNewFile,BufRead *.txt source ~/.vim/syntax/txt.vim
+
+
+" Show all possibilities of completition on cmd
+set wildmenu
+set wildmode=list:longest,full
+set wildignorecase
+
+set splitbelow
+set splitright
+set fillchars=vert:│
+
+" ----------------------------------------------------------------------------
+" Input auto-formatting (global defaults)
+" Probably need to update these in after/ftplugin too since ftplugins will
+" probably update it.
+" ----------------------------------------------------------------------------
+
+set formatoptions=
+set formatoptions+=c                  " Auto-wrap comments using textwidth
+set formatoptions+=r                  " Continue comments by default
+set formatoptions-=o                  " do not continue comment using o or O
+set formatoptions+=q                  " continue comments with gq
+set formatoptions-=a                  " auto-gq on type in comments?
+set formatoptions+=n                  " Recognize numbered lists
+set formatoptions+=2                  " Use indent from 2nd line of a paragraph
+set formatoptions-=l                  " break lines that are already long?
+set formatoptions+=1                  " Break before 1-letter words
+
+" Vim 7.4 only: no // comment when joining commented lines
+if v:version >= 704 | set formatoptions+=j | endif
+
+set nrformats-=octal                  " never use octal when <C-x> or <C-a>
+
+" ----------------------------------------------------------------------------
+" Whitespace
+" ----------------------------------------------------------------------------
+
+set nowrap
+set nojoinspaces                      " J command doesn't add extra space
+
 
 set statusline+=%{fugitive#statusline()}
 
 " Auto install if not installed and install all the plugs
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
@@ -74,7 +133,7 @@ Plug 'editorconfig/editorconfig-vim'
 
 " Better status bar (similar to airline but lighter)
 Plug 'itchyny/lightline.vim'
-  \| Plug 'cocopon/lightline-hybrid.vim'
+      \| Plug 'cocopon/lightline-hybrid.vim'
 
 " Easy way to wrap/unwrap words
 Plug 'tpope/vim-surround'
@@ -126,9 +185,9 @@ Plug '2072/PHP-Indenting-for-VIm'
 Plug 'ap/vim-css-color'
 
 Plug 'JulesWang/css.vim'
-  \| Plug 'groenewege/vim-less'
-  \| Plug 'hail2u/vim-css3-syntax'
-  \| Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
+      \| Plug 'groenewege/vim-less'
+      \| Plug 'hail2u/vim-css3-syntax'
+      \| Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss'] }
 
 Plug 'amix/open_file_under_cursor.vim'
 
@@ -150,14 +209,13 @@ Plug 'rakr/vim-togglebg'
 Plug 'bkad/CamelCaseMotion'
 
 Plug 'maksimr/vim-jsbeautify', {'for': [
-      \'javascript',
-      \'html',
-      \'css',
-      \'less',
-      \'scss',
-      \'jsx',
-      \'json',
-      \]}
+      \  'javascript',
+      \  'html',
+      \  'css',
+      \  'less',
+      \  'scss',
+      \  'jsx',
+      \  'json' ]}
 
 " Elm syntax
 Plug 'lambdatoast/elm.vim'
@@ -178,7 +236,24 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'ternjs/tern_for_vim'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  \| Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+
+Plug 'shawncplus/phpcomplete.vim', { 'for': 'php' }
+
+Plug 'pbogut/deoplete-padawan', {
+      \ 'do': 'composer global require mkusher/padawan',
+      \ 'for': 'php' }
+
+Plug 'lambdalisue/vim-backslash'
+
+Plug 'Shougo/neoinclude.vim'
+
+Plug 'Shougo/neco-vim'
+
+Plug 'Shougo/echodoc.vim'
+
+Plug 'Shougo/context_filetype.vim'
 
 call plug#end()
 
