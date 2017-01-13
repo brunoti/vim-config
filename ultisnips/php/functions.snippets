@@ -1,0 +1,13 @@
+snippet f "Php function"
+if(!function_exists('${1:name}')) {
+    /**
+     * ${3:'Documentation!'}
+     *
+     * @return ${4:void}
+     */
+    function $1(${2:$args})
+    {
+      return ${0:null};
+    }
+}
+endsnippet

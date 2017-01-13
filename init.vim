@@ -152,10 +152,8 @@ Plug 'junegunn/goyo.vim', { 'for': ['markdown', 'txt'] }
 Plug 'duggiefresh/vim-easydir'
 
 " Auto generate my tags while i work
-" - I need to learn how to config this
-"   the tags file can be very large
 " if executable('ctags')
-"   Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags'
 " endif
 
 " Tabularize is awesome
@@ -192,7 +190,7 @@ Plug 'JulesWang/css.vim'
 
 Plug 'amix/open_file_under_cursor.vim'
 
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'Raimondi/delimitMate'
 
@@ -209,7 +207,15 @@ Plug 'rakr/vim-togglebg'
 " Move through words in CamelCase style
 Plug 'bkad/CamelCaseMotion'
 
+" Linter and other features for Typescript
+Plug 'Quramy/tsuquyomi'
+
+" Highlights JavaScript's Template Strings in other FileType syntax
+Plug 'Quramy/vim-js-pretty-template'
+
+" Beutifiers for CSS, HTML and Javascript/Json/JSX
 Plug 'maksimr/vim-jsbeautify', {'for': [
+      \  'blade',
       \  'javascript',
       \  'html',
       \  'css',
@@ -246,6 +252,8 @@ Plug 'pbogut/deoplete-padawan', {
 
 Plug 'lambdalisue/vim-backslash'
 
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
 Plug 'Shougo/neoinclude.vim'
 
 Plug 'Shougo/neco-vim'
@@ -254,4 +262,62 @@ Plug 'Shougo/echodoc.vim'
 
 Plug 'Shougo/context_filetype.vim'
 
+Plug 'jwalton512/vim-blade'
+
+Plug 'mileszs/ack.vim'
+
+Plug 'wavded/vim-stylus'
+
+Plug 'arnaud-lb/vim-php-namespace', { 'for' : 'php' }
+
+Plug 'stephpy/vim-php-cs-fixer', { 'for' : 'php' }
+
+
 call plug#end()
+
+if has('nvim')
+  nnoremap <space>t  :vsplit +terminal<cr>
+  tnoremap <esc>      <c-\><c-n>
+  tnoremap <a-h>      <c-\><c-n><c-w>h
+  tnoremap <a-j>      <c-\><c-n><c-w>j
+  tnoremap <a-k>      <c-\><c-n><c-w>k
+  tnoremap <a-l>      <c-\><c-n><c-w>l
+  autocmd BufEnter term://* startinsert
+  autocmd TermClose * call feedkeys('<cr>')
+endif
+
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
+
+autocmd FileType javascript JsPreTmpl markdown
+
+function! IPhpInsertUse()
+  call PhpInsertUse()
+  call feedkeys('a',  'n')
+endfunction
+
+" autocmd FileType php inoremap <C-I> <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <space>i :call PhpInsertUse()<CR>
+
+function! IPhpExpandClass()
+  call PhpExpandClass()
+  call feedkeys('a', 'n')
+endfunction
+
+let g:php_cs_fixer_enable_default_mapping = 0
+
+" autocmd FileType php inoremap <C-e> <Esc>:call IPhpExpandClass()<CR>
+autocmd FileType php noremap <space>e :call PhpExpandClass()<CR>
+
+function! CustomPhpCsFixFile()
+  write
+  call PhpCsFixerFixFile()
+endfunction
+
+function! CustomPhpCsFixDirectory()
+  write
+  call PhpCsFixerFixDirectory()
+endfunction
+
+autocmd FileType php nnoremap <silent><C-f> :call CustomPhpCsFixerFixDirectory()<CR>
+autocmd FileType php nnoremap <silent><C-f> :call CustomPhpCsFixerFixFile()<CR>

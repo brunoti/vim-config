@@ -11,7 +11,6 @@ vmap <C-j> <C-y>,
 nmap <C-n> :NERDTreeToggle<CR>
 nmap <C-t> :NERDTreeFind<CR>
 
-
 " Cabs to avoid errors on saving, quiting
 cab W  w
 cab Wq wq
@@ -115,7 +114,10 @@ nnoremap <leader>a: :Tabularize /:\zs<CR>
 vnoremap <leader>a: :Tabularize /:\zs<CR>
 
 
+" Never jump lines
 map k gk
 map j gj
+
+" Go to the first caracter of the line not the beginning
 
 call togglebg#map("<F5>")

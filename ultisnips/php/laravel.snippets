@@ -1,0 +1,191 @@
+snippet controller "Laravel resource control" b
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class ${1:`!v expand('%:t:r')`} extends ${2:Controller}
+{
+
+    /**
+     * $1 constructor
+     */
+    public function __construct()
+    {
+      //
+    }
+
+    /**
+     * Shows a list of the resource
+     *
+     * @return Response
+     */
+    public function index()
+    {
+      //
+    }
+
+    /**
+     * Shows a form to create a new resource
+     *
+     * @return Response
+     */
+    public function create()
+    {
+      //
+    }
+
+    /**
+     * Saves a new resource
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+      //
+    }
+
+    /**
+     * Show an especific resource
+     *
+     * @param mixed $id
+     *
+     * @return Response
+     */
+    public function show($id)
+    {
+      //
+    }
+
+    /**
+     * Shows a form to edit a resource
+     *
+     * @param mixed $id
+     *
+     * @return Response
+     */
+    public function edit($id)
+    {
+      //
+    }
+
+    /**
+     * Updates a resource
+     *
+     * @param Request $request
+     * @param mixed $id
+     *
+     * @return Response
+     */
+    public function update(Request $request, $id)
+    {
+      //
+    }
+
+    /**
+     * Deletes a resource
+     *
+     * @param mixed $id
+     *
+     * @return Response
+     */
+    public function destroy($id)
+    {
+      //
+    }
+}
+endsnippet
+
+snippet resource "Resource methods"
+/**
+ * ${1:`!v expand('%:t:r')`} constructor
+ */
+public function __construct()
+{
+  //
+}
+
+/**
+ * Shows a list of the resource
+ *
+ * @return Response
+ */
+public function index()
+{
+  //
+}
+
+/**
+ * Shows a form to create a new resource
+ *
+ * @return Response
+ */
+public function create()
+{
+  //
+}
+
+/**
+ * Saves a new resource
+ *
+ * @param Request $request
+ *
+ * @return Response
+ */
+public function store(Request $request)
+{
+  //
+}
+
+/**
+ * Show an especific resource
+ *
+ * @param mixed $id
+ *
+ * @return Response
+ */
+public function show($id)
+{
+  //
+}
+
+/**
+ * Shows a form to edit a resource
+ *
+ * @param mixed $id
+ *
+ * @return Response
+ */
+public function edit($id)
+{
+  //
+}
+
+/**
+ * Updates a resource
+ *
+ * @param Request $request
+ * @param mixed $id
+ *
+ * @return Response
+ */
+public function update(Request $request, $id)
+{
+  //
+}
+
+/**
+ * Deletes a resource
+ *
+ * @param mixed $id
+ *
+ * @return Response
+ */
+public function destroy($id)
+{
+  //
+}
+endsnippet

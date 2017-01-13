@@ -1,0 +1,27 @@
+snippet foreach "@foreach"
+@foreach(${1:$array} as ${2:$element})
+  $3
+@endforeach
+endsnippet
+
+snippet sec "@section"
+@section('${1:content}')
+  $2
+@endsection
+endsnippet
+
+snippet seci "Inline @section"
+@section('${1:title}', '${2:default}')
+endsnippet
+
+snippet yl "@yield"
+@yield('${1:title}'${2:, '${3:default}'})
+endsnippet
+
+snippet ext "@extend"
+@extends('${1:layouts.default}')
+endsnippet
+
+snippet inc "@include"
+@include('${1:view.name}'${2:, [${3:'some'} => ${4:'data'}]})$0
+endsnippet

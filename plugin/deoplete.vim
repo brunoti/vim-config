@@ -1,3 +1,17 @@
+
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+call deoplete#custom#set('_', 'matchers', [
+      \   'matcher_head',
+      \   'matcher_length',
+      \ ])
+
 let g:deoplete#sources = {}
 let g:deoplete#omni_patterns = {}
 let g:deoplete#omni#input_patterns = {}
@@ -10,9 +24,11 @@ let g:deoplete#enable_at_startup  = 1
 " [file] candidates are relative to the buffer path
 let g:deoplete#file#enable_buffer_path = 1
 
-let g:deoplete#auto_completion_start_length = 1
+let g:deoplete#auto_completion_start_length = 0
 
-let g:deoplete#sources._=['omni', 'buffer', 'member', 'tag', 'ultisnips', 'file']
+let g:deoplete#sources._ = ['file', 'omni', 'buffer', 'member', 'tag', 'ultisnips']
+let g:deoplete#sources.php = ['file', 'omni', 'buffer', 'member', 'tag', 'ultisnips']
+let g:deoplete#sources.javascript = ['file', 'omni', 'buffer', 'member', 'tag', 'ultisnips']
 
 let g:deoplete#omni_patterns.php = '\w+|[^. \t]->\w*|\w+::\w*'
 
@@ -43,14 +59,9 @@ let g:tern#arguments = [ '--persistent' ]
 
 
 let g:deoplete#omni#functions.javascript = ['tern#Complete' ]
+let g:deoplete#omni#functions['javascript.jsx'] = ['tern#Complete' ]
 
 let g:deoplete#omni#functions.php = []
-
-
-call deoplete#custom#set('_', 'matchers', [
-      \   'matcher_head',
-      \   'matcher_length',
-      \ ])
 
 
 " Define keyword
@@ -58,4 +69,4 @@ if !exists('g:deoplete#keyword_patterns')
     let g:deoplete#keyword_patterns = {}
 endif
 
-let g:deoplete#keyword_patterns.default = '[a-zA-Z_]\w{2,}?'
+" let g:deoplete#keyword_patterns.default = '[a-zA-Z_]\w{2,}?'
