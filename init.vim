@@ -2,8 +2,8 @@ scriptencoding utf-8
 
 set encoding=utf-8
 
-set termguicolors
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" set termguicolors
+" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 set expandtab    " default to spaces instead of tabs
 set shiftwidth=2 " softtabs are 2 spaces for expandtab
@@ -58,6 +58,7 @@ autocmd BufRead,BufNewFile *.htm set ft=html.twig
 autocmd BufNewFile,BufRead *.blade.php set filetype=blade.html.php | set syntax=blade
 autocmd BufNewFile,BufRead *.txt source ~/.vim/syntax/txt.vim
 
+nmap <space>c :Dispatch sudo php cowboy c:c<cr>
 
 " Show all possibilities of completition on cmd
 set wildmenu
@@ -268,10 +269,15 @@ Plug 'mileszs/ack.vim'
 
 Plug 'wavded/vim-stylus'
 
+Plug 'vim-scripts/smarty-syntax'
+
 Plug 'arnaud-lb/vim-php-namespace', { 'for' : 'php' }
 
 Plug 'stephpy/vim-php-cs-fixer', { 'for' : 'php' }
 
+Plug 'Valloric/MatchTagAlways'
+
+Plug 'milkypostman/vim-togglelist'
 
 call plug#end()
 
@@ -309,15 +315,25 @@ let g:php_cs_fixer_enable_default_mapping = 0
 " autocmd FileType php inoremap <C-e> <Esc>:call IPhpExpandClass()<CR>
 autocmd FileType php noremap <space>e :call PhpExpandClass()<CR>
 
+function! ToPhpShortArray()
+  execute '!php /home/bruno/.local/php-short-array-syntax-converter/convert.php -w ' . expand('%')
+  execute 'edit ' . expand('%')
+endfunction
+
 function! CustomPhpCsFixFile()
   write
   call PhpCsFixerFixFile()
+  call ToPhpShortArray()
 endfunction
 
-function! CustomPhpCsFixDirectory()
-  write
-  call PhpCsFixerFixDirectory()
-endfunction
+autocmd FileType php nnoremap <silent><C-f> :call CustomPhpCsFixFile()<CR>
 
-autocmd FileType php nnoremap <silent><C-f> :call CustomPhpCsFixerFixDirectory()<CR>
-autocmd FileType php nnoremap <silent><C-f> :call CustomPhpCsFixerFixFile()<CR>
+nnoremap <C-]> <C-w><C-]><C-w>T
+
+nmap <space>ve :tabe ~/.vim/init.vim<cr>
+nmap <space>vl :so ~/.vim/init.vim<cr>
+
+let g:toggle_list_no_mappings = 1
+
+nmap <script> <silent> <space>l :call ToggleLocationList()<CR>
+nmap <script> <silent> <space>q :call ToggleQuickfixList()<CR>

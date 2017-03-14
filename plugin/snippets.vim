@@ -5,4 +5,5 @@ let g:UltiSnipsEditSplit = "vertical"
 let g:UltiSnipsSnippetsDir = "~/.vim/ultisnips"
 let g:UltiSnipsRemoveSelectModeMappings = 1
 let g:UltiSnipsEnableSnipMate = 0
+let g:UltiSnipsSnippetDirectories=["ultisnips"]
 
