@@ -189,3 +189,34 @@ public function destroy($id)
   //
 }
 endsnippet
+
+snippet stable "Schema::table"
+Schema::table('${1:table_name}', function($table) {
+	$0
+});
+endsnippet
+
+snippet screate "Schema::create"
+Schema::create('${1:table_name}', function($table) {
+	$table->increments('id');
+	$0
+});
+endsnippet
+
+snippet foreign "$table->foreign"
+$table->foreign('${1:column_name}_id')
+	->references('${2:id}')
+	->on('${2:$1s}')
+	->onDelete('${3:cascade}')
+	->onUpdate('${4:cascade}');
+endsnippet
+
+snippet sdrop "Schema::dropIfExists"
+Schema::dropIfExists('${1:table_name}');
+endsnippet
+
+snippet cdrop "Drop column"
+Schema::table('${1:table_name}', function($table) {
+	$table->dropColumn('${2:column_name}');
+});
+endsnippet

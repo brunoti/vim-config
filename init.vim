@@ -2,8 +2,14 @@ scriptencoding utf-8
 
 set encoding=utf-8
 
-" set termguicolors
-" let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+" For a smarter searching
+set ignorecase
+
+" For a smarter tag search
+set tagcase=smart
+
+set termguicolors
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 
 set expandtab    " default to spaces instead of tabs
 set shiftwidth=2 " softtabs are 2 spaces for expandtab
@@ -29,14 +35,19 @@ set backspace=indent,eol,start        " bs anything
 " Set new backup and swap directory
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
+set undodir=~/.vim/undodir//
+
 
 set wrap
 set linebreak
 
+" Change leader key to , (comma)
 let mapleader=','
+let maplocalleader=','
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set wildignore+=*/node_modules/**
+set wildignore+=*/PF.Base/file/cache/**
 set wildignore+=*/vendor/*
 set wildignore+=*/bower_components/**
 set wildignore+=*/libs/**
@@ -49,16 +60,13 @@ set wildignore+=*/**/*.gif*
 set wildignore+=*/**/*.gif*
 set wildignore+=*/docs/**
 
-autocmd FileType php setl ofu=phpcomplete#CompletePHP
+" autocmd FileType php setl ofu=phpcomplete#CompletePHP
 autocmd FileType ruby,eruby setl ofu=rubycomplete#Complete
 autocmd FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
 autocmd FileType c setl ofu=ccomplete#CompleteCpp
 autocmd FileType css setl ofu=csscomplete#CompleteCSS
 autocmd BufRead,BufNewFile *.htm set ft=html.twig
 autocmd BufNewFile,BufRead *.blade.php set filetype=blade.html.php | set syntax=blade
-autocmd BufNewFile,BufRead *.txt source ~/.vim/syntax/txt.vim
-
-nmap <space>c :Dispatch sudo php cowboy c:c<cr>
 
 " Show all possibilities of completition on cmd
 set wildmenu
@@ -67,7 +75,12 @@ set wildignorecase
 
 set splitbelow
 set splitright
+
+" Better split char
 set fillchars=vert:│
+
+" Maintain undo history between sessions
+set undofile
 
 " ----------------------------------------------------------------------------
 " Input auto-formatting (global defaults)
@@ -95,11 +108,8 @@ set nrformats-=octal                  " never use octal when <C-x> or <C-a>
 " Whitespace
 " ----------------------------------------------------------------------------
 
-set nowrap
+set wrap
 set nojoinspaces                      " J command doesn't add extra space
-
-
-set statusline+=%{fugitive#statusline()}
 
 " Auto install if not installed and install all the plugs
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -117,9 +127,14 @@ call plug#begin('~/.vim/plugged')
 "   - t9md/vim-textmanip
 "   - matze/vim-move
 
-
 " Hybrid Colorscheme
 Plug 'w0ng/vim-hybrid'
+
+" Nova colors
+Plug 'trevordmiller/nova-vim'
+Plug 'alnjxn/estilo-nova'
+
+Plug 'nelsyeung/twig.vim'
 
 " NERD Tree for side-bar folders
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle', 'NERDTreeFind', 'NERDTree'] }
@@ -136,9 +151,16 @@ Plug 'editorconfig/editorconfig-vim'
 " Better status bar (similar to airline but lighter)
 Plug 'itchyny/lightline.vim'
       \| Plug 'cocopon/lightline-hybrid.vim'
+      \| Plug 'shirataki/lightline-onedark'
+      \| Plug 'majutsushi/tagbar'
 
 " Easy way to wrap/unwrap words
 Plug 'tpope/vim-surround'
+
+Plug 'mklabs/split-term.vim'
+
+" Atom's One Colorscheme for vim
+Plug 'rakr/vim-one'
 
 " Easy string coercion
 Plug 'tpope/vim-abolish'
@@ -147,15 +169,13 @@ Plug 'tpope/vim-abolish'
 Plug 'wakatime/vim-wakatime'
 
 " Goyo: distraction free mode for vim
-Plug 'junegunn/goyo.vim', { 'for': ['markdown', 'txt'] }
+Plug 'junegunn/goyo.vim', { 'on': ['Goyo'] }
 
 " A simple way to create, edit and save files and parent directories
 Plug 'duggiefresh/vim-easydir'
 
 " Auto generate my tags while i work
-" if executable('ctags')
 Plug 'ludovicchabant/vim-gutentags'
-" endif
 
 " Tabularize is awesome
 Plug 'godlygeek/tabular', { 'on': [ 'Tabularize' ] }
@@ -184,6 +204,10 @@ Plug '2072/PHP-Indenting-for-VIm'
 
 Plug 'ap/vim-css-color'
 
+Plug 'dyng/ctrlsf.vim'
+
+Plug 'KeitaNakamura/neodark.vim'
+
 Plug 'JulesWang/css.vim'
       \| Plug 'groenewege/vim-less'
       \| Plug 'hail2u/vim-css3-syntax'
@@ -191,13 +215,16 @@ Plug 'JulesWang/css.vim'
 
 Plug 'amix/open_file_under_cursor.vim'
 
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'Raimondi/delimitMate'
 
 Plug 'nelstrom/vim-visual-star-search'
 
+Plug 'tyrannicaltoucan/vim-quantum'
+
 Plug 'pangloss/vim-javascript'
+  \| Plug 'mxw/vim-jsx'
 
 " A helper for editing files through ssh/ftp
 Plug 'zenbro/mirror.vim'
@@ -207,6 +234,10 @@ Plug 'rakr/vim-togglebg'
 
 " Move through words in CamelCase style
 Plug 'bkad/CamelCaseMotion'
+
+" Aims to replace Vim's default '10 lines yanked' with a more meaningful
+" '10 lines yanked into register c', when used together with a register.
+Plug 'thalesmello/nvim-better-operator-message'
 
 " Linter and other features for Typescript
 Plug 'Quramy/tsuquyomi'
@@ -234,9 +265,6 @@ Plug 'othree/html5.vim'
 " Typescript syntax
 Plug 'leafgarland/typescript-vim'
 
-" JSX Syntax
-Plug 'maxmellon/vim-jsx-pretty'
-
 Plug 'dietsche/vim-lastplace'
 
 Plug 'terryma/vim-multiple-cursors'
@@ -247,9 +275,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 
-Plug 'pbogut/deoplete-padawan', {
-      \ 'do': 'composer global require mkusher/padawan',
-      \ 'for': 'php' }
+Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 
 Plug 'lambdalisue/vim-backslash'
 
@@ -265,8 +291,6 @@ Plug 'Shougo/context_filetype.vim'
 
 Plug 'jwalton512/vim-blade'
 
-Plug 'mileszs/ack.vim'
-
 Plug 'wavded/vim-stylus'
 
 Plug 'vim-scripts/smarty-syntax'
@@ -278,6 +302,38 @@ Plug 'stephpy/vim-php-cs-fixer', { 'for' : 'php' }
 Plug 'Valloric/MatchTagAlways'
 
 Plug 'milkypostman/vim-togglelist'
+
+Plug 'pgdouyon/vim-niffler'
+
+Plug 'posva/vim-vue'
+
+Plug 'kien/rainbow_parentheses.vim'
+
+Plug 'venantius/vim-eastwood'
+
+Plug 'guns/vim-clojure-static'
+  \| Plug 'guns/vim-clojure-highlight'
+
+Plug 'kana/vim-textobj-user'
+  \| Plug 'kana/vim-textobj-function'
+  \| Plug	'kana/vim-textobj-line'
+  \| Plug 'coderifous/textobj-word-column.vim'
+  \| Plug 'mattn/vim-textobj-url'
+  \| Plug 'akiyan/vim-textobj-php'
+  \| Plug 'kana/vim-textobj-indent'
+  \| Plug 'adriaanzon/vim-textobj-blade-directive'
+  \| Plug 'sgur/vim-textobj-parameter'
+  \| Plug 'whatyouhide/vim-textobj-xmlattr'
+  \| Plug 'rhysd/vim-textobj-anyblock'
+  \| Plug 'kentaro/vim-textobj-function-php'
+  \| Plug 'thinca/vim-textobj-function-javascript'
+  \| Plug 'saaguero/vim-textobj-pastedtext'
+  \| Plug 'kana/vim-textobj-datetime'
+  " \| Plug 'jasonlong/vim-textobj-css'
+
+Plug 'tommcdo/vim-exchange'
+
+Plug 'Shougo/denite.nvim'
 
 call plug#end()
 
@@ -292,9 +348,6 @@ if has('nvim')
   autocmd TermClose * call feedkeys('<cr>')
 endif
 
-cnoreabbrev Ack Ack!
-nnoremap <Leader>a :Ack!<Space>
-
 autocmd FileType javascript JsPreTmpl markdown
 
 function! IPhpInsertUse()
@@ -302,8 +355,8 @@ function! IPhpInsertUse()
   call feedkeys('a',  'n')
 endfunction
 
-" autocmd FileType php inoremap <C-I> <Esc>:call IPhpInsertUse()<CR>
-autocmd FileType php noremap <space>i :call PhpInsertUse()<CR>
+autocmd FileType php noremap <space>pe :call PhpExpandClass()<CR>
+autocmd FileType php noremap <space>pi :call PhpInsertUse()<CR>
 
 function! IPhpExpandClass()
   call PhpExpandClass()
@@ -312,18 +365,16 @@ endfunction
 
 let g:php_cs_fixer_enable_default_mapping = 0
 
-" autocmd FileType php inoremap <C-e> <Esc>:call IPhpExpandClass()<CR>
-autocmd FileType php noremap <space>e :call PhpExpandClass()<CR>
 
 function! ToPhpShortArray()
-  execute '!php /home/bruno/.local/php-short-array-syntax-converter/convert.php -w ' . expand('%')
+  execute '!array-converter -w ' . expand('%')
   execute 'edit ' . expand('%')
 endfunction
 
 function! CustomPhpCsFixFile()
   write
-  call PhpCsFixerFixFile()
   call ToPhpShortArray()
+  call PhpCsFixerFixFile()
 endfunction
 
 autocmd FileType php nnoremap <silent><C-f> :call CustomPhpCsFixFile()<CR>
@@ -337,3 +388,60 @@ let g:toggle_list_no_mappings = 1
 
 nmap <script> <silent> <space>l :call ToggleLocationList()<CR>
 nmap <script> <silent> <space>q :call ToggleQuickfixList()<CR>
+
+nnoremap <C-C> :CtrlSF
+inoremap <C-C> <esc>:CtrlSF
+
+let g:ctrlsf_populate_qflist = 1
+let g:ctrlsf_position = 'bottom'
+
+nmap <space>k :res -10<CR>
+nmap <space>j :res +10<CR>
+nmap <space>h :vertical resize -10<CR>
+nmap <space>l :vertical resize +10<CR>
+
+vmap <C-y> "*y
+map <C-p> "*p
+
+nmap <C-p> :update<CR>:Niffler ./<CR>
+
+" Define some single Blade directives. This variable is used for highlighting only.
+let g:blade_custom_directives = []
+
+" Define pairs of Blade directives. This variable is used for highlighting and indentation.
+let g:blade_custom_directives_pairs = {
+      \   'shield': 'endshield',
+      \ }
+
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'xhtml' : 1,
+    \ 'xml' : 1,
+    \ 'jinja' : 1,
+    \ 'blade' : 1,
+    \ 'php' : 1,
+    \ 'javascript' : 1,
+    \}
+
+let g:jsx_ext_required = 0
+let g:jsx_pragma_required = 0
+
+map <leader>; $a;<esc>
+
+let g:goyo_width = 190
+let g:goyo_height = 100
+let g:goyo_linenr = 10
+
+" Movement in insert mode
+inoremap <C-h> <C-o>h
+inoremap <C-l> <C-o>a
+inoremap <C-j> <C-o>j
+inoremap <C-k> <C-o>k
+
+" Making smaller chunks of undo while only writing
+inoremap . .<c-g>u
+inoremap ? ?<c-g>u
+inoremap , ,<c-g>u
+inoremap ! !<c-g>u
+
+set completeopt-=preview

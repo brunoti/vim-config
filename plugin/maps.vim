@@ -4,8 +4,8 @@ imap kk <esc>
 
 " Emmet re-mapping because changing using the plugin variables break
 " everything sometimes
-imap <C-j> <C-y>,
-vmap <C-j> <C-y>,
+" imap <C-j> <C-y>,
+" vmap <C-j> <C-y>,
 
 " NERDTree mappings
 nmap <C-n> :NERDTreeToggle<CR>
@@ -30,10 +30,10 @@ nmap <leader>vs :vsplit<cr>
 nmap <leader>sp :split<cr>
 
 " Window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
 
 " Tab navigation
 map <silent><S-h> :tabprevious<CR>
@@ -106,10 +106,10 @@ autocmd FileType css          vnoremap <buffer> <C-f> :call RangeCSSBeautify()<C
 vmap = =gv
 
 " Tabularize map helpers
-nnoremap <leader>a= :Tabularize /=<CR>
-vnoremap <leader>a= :Tabularize /=<CR>
-vnoremap <leader>a> :Tabularize /=><CR>
-nnoremap <leader>a> :Tabularize /=><CR>
+nnoremap <leader>a= :Tabularize /=.*/<CR>
+vnoremap <leader>a= :Tabularize /=.*/<CR>
+vnoremap <leader>a> :Tabularize /=>.*/<CR>
+nnoremap <leader>a> :Tabularize /=>.*/<CR>
 nnoremap <leader>a: :Tabularize /:\zs<CR>
 vnoremap <leader>a: :Tabularize /:\zs<CR>
 
@@ -118,6 +118,11 @@ vnoremap <leader>a: :Tabularize /:\zs<CR>
 map k gk
 map j gj
 
-" Go to the first caracter of the line not the beginning
-
+" Toggle dark/light option of the current colorscheme
 call togglebg#map("<F5>")
+
+" ----------------------------------------------------------------------------
+" Buffers
+" ----------------------------------------------------------------------------
+nnoremap ]b :bnext<cr>
+nnoremap [b :bprev<cr>

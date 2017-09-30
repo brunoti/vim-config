@@ -1,5 +1,7 @@
 set background=dark
-colorscheme hybrid
+" colorscheme hybrid
+
+colorscheme quantum
 
 " I like my comments in italic.
 " Comment this line to leave it configurable by the colorscheme.
@@ -22,8 +24,12 @@ function! PhpSyntaxOverride()
         " hi phpDocParam cterm=italic gui=italic guifg=#56B6C2
     endif
     if g:colors_name == "hybrid"
-        " hi phpDocTags cterm=italic gui=italic guifg=#8ABEB7
-        " hi phpDocParam cterm=italic gui=italic guifg=#DE935F
+        hi phpDocTags cterm=italic gui=italic guifg=#8ABEB7
+        hi phpDocParam cterm=italic gui=italic guifg=#DE935F
+    endif
+    if g:colors_name == "nova"
+        hi phpDocTags cterm=italic gui=italic guifg=#8384E3
+        hi phpDocParam cterm=italic gui=italic guifg=#93D492
     endif
 endfunction
 

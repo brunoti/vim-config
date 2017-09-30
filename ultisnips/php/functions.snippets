@@ -1,5 +1,5 @@
 snippet f "Php function"
-if(!function_exists('${1:name}')) {
+if(! function_exists('${1:name}')) {
     /**
      * ${3:'Documentation!'}
      *
@@ -10,4 +10,8 @@ if(!function_exists('${1:name}')) {
       return ${0:null};
     }
 }
+endsnippet
+
+snippet co "Php Compact"
+compact('$1')$0
 endsnippet

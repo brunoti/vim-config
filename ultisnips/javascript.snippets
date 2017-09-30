@@ -1,11 +1,5 @@
 priority -50
 
-global !p
-from javascript_snippets import (
-	semi, space_before_function_paren, keyword_spacing
-)
-endglobal
-
 snippet get "Get Elements"
 document.getElement${1/(T)|.*/(?1:s)/}By${1:T}${1/(T)|(I)|.*/(?1:agName)(?2:d)/}('$2')
 endsnippet
@@ -23,30 +17,30 @@ document.querySelectorAll(${1:'$2'})${3:;}$0
 endsnippet
 
 snippet fun "function (fun)" w
-function ${1:function_name}`!p snip.rv = space_before_function_paren(snip)`(${2:argument}) {
+function ${1:function_name}(${2:argument}) {
 	${VISUAL}$0
 }
 endsnippet
 
 snippet f "function (fun)" w
-function ${1:function_name}`!p snip.rv = space_before_function_paren(snip)`(${2:argument}) {
+function ${1:function_name}(${2:argument}) {
 	${VISUAL}$0
 }
 endsnippet
 
 snippet ret "Return statement"
-return ${VISUAL}$0`!p snip.rv = semi(snip)`
+return ${VISUAL}$0;
 endsnippet
 
 snippet us
-'use strict'`!p snip.rv = semi(snip)`
+'use strict';
 endsnippet
 
 snippet switch
-switch`!p snip.rv = keyword_spacing(snip)`(${VISUAL}${1:expression}) {
+switch(${VISUAL}${1:expression}) {
 	case '${VISUAL}${3:case}':
 		${4}
-		break`!p snip.rv = semi(snip)`
+		break;
 	${0}
 	default:
 		${2}
@@ -55,37 +49,138 @@ endsnippet
 
 
 snippet vf "Function assigned to var"
-${1:var }${2:function_name} = function $2`!p snip.rv = space_before_function_paren(snip)`($3) {
+${1:var }${2:function_name} = function $2($3) {
 	${VISUAL}$0
-}`!p snip.rv = semi(snip)`
+};
 endsnippet
 
 snippet iife "Immediately-Invoked Function Expression (iife)"
-(function`!p snip.rv = space_before_function_paren(snip)`(${1:window}) {
+(function(${1:window}) {
 	${VISUAL}$0
-}(${2:$1}))`!p snip.rv = semi(snip)`
+}(${2:$1}));
 endsnippet
 
 snippet fe "Immediately-Invoked Function Expression (iife)"
-(function`!p snip.rv = space_before_function_paren(snip)`(${1:window}) {
+(function(${1:window}) {
 	${VISUAL}$0
-}(${2:$1}))`!p snip.rv = semi(snip)`
+}(${2:$1}));
 endsnippet
 
 snippet (f "Immediately-Invoked Function Expression (iife)"
-(function`!p snip.rv = space_before_function_paren(snip)`(${1:window}) {
+(function(${1:window}) {
 	${VISUAL}$0
-}(${2:$1}))`!p snip.rv = semi(snip)`
+}(${2:$1}));
 endsnippet
 
 snippet ;fe "Minify safe iife"
-;(function`!p snip.rv = space_before_function_paren(snip)`(${1}) {
+;(function(${1}) {
 	${VISUAL}$0
 }(${2}))
 endsnippet
 
 snippet timeout "setTimeout function"
-setTimeout(function`!p snip.rv = space_before_function_paren(snip)`() {
+setTimeout(function() {
 	${VISUAL}$0
-}${2:.bind(${3:this})}, ${1:10})`!p snip.rv = semi(snip)`
+}${2:.bind(${3:this})}, ${1:10});
 endsnippet
+
+snippet rc "create class component" b
+import React, { ${1:PropTypes, }Component } from 'react';
+
+class ${2:ClassComponent} extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoading: true,
+    };
+  }
+
+	render() {
+		return (
+      $0
+    );
+	}
+}
+
+${3:export default $2;}
+endsnippet
+
+# Arrow function
+snippet => "Arrow function" i
+(${1}) => {
+	${2}
+}
+endsnippet
+
+snippet class
+class ${1:ClassName}${2: extends ${3:Inherit}} {
+	${4:constructor(${5:arg}) {
+		${5}
+	}}
+	${6}
+}
+
+export default $1;
+endsnippet
+
+# Import
+snippet im "Import Module" b
+import ${1:foo} from '${2:bar}';
+endsnippet
+
+# Export
+snippet ex "Export Module" b
+export ${1:default} ${2:bar};
+endsnippet
+
+snippet cdm "React: componentDidMount() {...}" b
+componentDidMount () {
+	${1}
+}
+$0
+endsnippet
+
+snippet cdup "React: componentDidUpdate(prevProps, prevState) {...}" b
+componentDidUpdate (prevProps, prevState) {
+	${1}
+}
+$0
+endsnippet
+
+snippet cwm "React: componentWillMount() {...}" b
+componentWillMount () {
+	${1}
+}
+$0
+endsnippet
+
+snippet cwr "React: componentWillReceiveProps(nextProps) {...}" b
+componentWillReceiveProps (nextProps) {
+	${1}
+}
+$0
+endsnippet
+
+snippet cwun "React: componentWillUnmount() {...}" b
+componentWillUnmount () {
+	${1}
+}
+$0
+endsnippet
+
+snippet cwup "React: componentWillUpdate (nextProps, nextState) {...}" b
+componentWillUpdate (nextProps, nextState) {
+	${1}
+}
+$0
+endsnippet
+
+snippet autobind "auto bind decorator import" b
+import { autobind } from 'core-decorators';
+endsnippet
+
+snippet @a "auto bind decorator call" b
+@autobind
+endsnippet
+
