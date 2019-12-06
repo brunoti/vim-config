@@ -5,7 +5,11 @@ document.getElement${1/(T)|.*/(?1:s)/}By${1:T}${1/(T)|(I)|.*/(?1:agName)(?2:d)/}
 endsnippet
 
 snippet c "console.log"
-console.log(${1:'$2'})${3:;}$0
+console.log('$1', $1)${2:;}$0
+endsnippet
+
+snippet cc "console.log"
+console.log($1)${2:;}$0
 endsnippet
 
 snippet qs "Query Selector"
@@ -66,12 +70,6 @@ snippet fe "Immediately-Invoked Function Expression (iife)"
 }(${2:$1}));
 endsnippet
 
-snippet (f "Immediately-Invoked Function Expression (iife)"
-(function(${1:window}) {
-	${VISUAL}$0
-}(${2:$1}));
-endsnippet
-
 snippet ;fe "Minify safe iife"
 ;(function(${1}) {
 	${VISUAL}$0
@@ -85,9 +83,9 @@ setTimeout(function() {
 endsnippet
 
 snippet rc "create class component" b
-import React, { ${1:PropTypes, }Component } from 'react';
+import React, { Component } from 'react';
 
-class ${2:ClassComponent} extends Component {
+class ${1:ClassComponent} extends Component {
   constructor(props) {
     super(props);
 
@@ -98,12 +96,12 @@ class ${2:ClassComponent} extends Component {
 
 	render() {
 		return (
-      $0
+      ${0: null}
     );
 	}
 }
 
-${3:export default $2;}
+${3:export default $1;}
 endsnippet
 
 # Arrow function
@@ -124,6 +122,71 @@ class ${1:ClassName}${2: extends ${3:Inherit}} {
 export default $1;
 endsnippet
 
+snippet rmx "create redux module" b
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'ramda';
+import { Route } from 'react-router-dom';
+
+import injectReducer from 'utils/injectReducer';
+import { $2 } from '${1/.*/\L$0\E/g}/containers';
+import reducer from '${1/.*/\L$0\E/g}/reducers';
+
+class ${1:Class} extends Component {
+	render() {
+    return (
+      ${0: <$1 />}
+    );
+	}
+}
+
+const mapStateToProps = state => ({});
+const withConnect = connect(mapStateToProps);
+const withReducer = injectReducer({ key: '${1/.*/\L$0\E/g}', reducer });
+
+
+export default compose(
+  withReducer,
+  withConnect,
+)($1);
+endsnippet
+
+snippet reducer "create redux reducer" b
+import { handleActions } from 'redux-actions';
+import types from '$1/types';
+
+const INITIAL_STATE = {$2};
+
+const reducer = handleActions({$3}, INITIAL_STATE);
+
+export default reducer;
+endsnippet
+
+snippet rcx "create redux container" b
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import get from 'utils/get';
+import * as actions from '${1/.*/\L$0\E/g}/actions';
+
+class ${1:Class}${2:Type}Container extends Component {
+	render() {
+		return (
+      ${0: <$1 />}
+    );
+	}
+}
+
+const mapStateToProps = state => ({
+	isLoading: get(state, '${1/.*/\L$0\E/g}.${2/.*/\L$0\E/g}.isLoading'),
+});
+const mapActionsToProps = {
+	...actions,
+};
+
+export default connect(mapStateToProps, mapActionsToProps)($1$2Container);
+endsnippet
+
 # Import
 snippet im "Import Module" b
 import ${1:foo} from '${2:bar}';
@@ -135,21 +198,21 @@ export ${1:default} ${2:bar};
 endsnippet
 
 snippet cdm "React: componentDidMount() {...}" b
-componentDidMount () {
+componentDidMount() {
 	${1}
 }
 $0
 endsnippet
 
 snippet cdup "React: componentDidUpdate(prevProps, prevState) {...}" b
-componentDidUpdate (prevProps, prevState) {
+componentDidUpdate(prevProps, prevState) {
 	${1}
 }
 $0
 endsnippet
 
 snippet cwm "React: componentWillMount() {...}" b
-componentWillMount () {
+componentWillMount() {
 	${1}
 }
 $0
@@ -163,14 +226,14 @@ $0
 endsnippet
 
 snippet cwun "React: componentWillUnmount() {...}" b
-componentWillUnmount () {
+componentWillUnmount() {
 	${1}
 }
 $0
 endsnippet
 
-snippet cwup "React: componentWillUpdate (nextProps, nextState) {...}" b
-componentWillUpdate (nextProps, nextState) {
+snippet cwup "React: componentWillUpdate(nextProps, nextState) {...}" b
+componentWillUpdate(nextProps, nextState) {
 	${1}
 }
 $0
@@ -184,3 +247,26 @@ snippet @a "auto bind decorator call" b
 @autobind
 endsnippet
 
+snippet rcs "create dumb component" b
+import React, { Component } from 'react';
+import { View } from 'react-native';
+import connectStyle from 'utils/connectStyle';
+import clearStyle from 'utils/clearStyle';
+import styles from './styles';
+
+class ${1:ClassComponent} extends Component {
+	render() {
+		return (
+      <View style={clearStyle(this.props.style)}>
+				$0
+      </View>
+    );
+	}
+}
+
+${3:export default connectStyle('$1', styles, $1);}
+endsnippet
+
+snippet nb "import from native base" b
+${3:import { $1 } from 'native-base'${2:;}}
+endsnippet

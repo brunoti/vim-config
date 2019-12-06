@@ -22,6 +22,7 @@ cab wQA wqa
 cab wqA wqa
 cab wQ wq
 cab WA wa
+cab Wa wa
 cab Q  q
 cab Qa  qa
 
@@ -95,7 +96,7 @@ autocmd FileType javascript   noremap  <buffer> <C-f> :call JsBeautify()<CR>
 autocmd FileType json         noremap  <buffer> <C-f> :call JsonBeautify()<CR>
 autocmd FileType jsx          noremap  <buffer> <C-f> :call JsxBeautify()<CR>
 autocmd FileType html         noremap  <buffer> <C-f> :call HtmlBeautify()<CR>
-autocmd FileType css          noremap  <buffer> <C-f> :call CSSBeautify()<CR>gv
+autocmd FileType css,less,sass noremap  <buffer> <C-f> :call CSSBeautify()<CR>
 autocmd FileType javascript   vnoremap <buffer> <C-f> :call RangeJsBeautify()<CR>gv
 autocmd FileType json         vnoremap <buffer> <C-f> :call RangeJsonBeautify()<CR>gv
 autocmd FileType jsx          vnoremap <buffer> <C-f> :call RangeJsxBeautify()<CR>gv
@@ -112,7 +113,6 @@ vnoremap <leader>a> :Tabularize /=>.*/<CR>
 nnoremap <leader>a> :Tabularize /=>.*/<CR>
 nnoremap <leader>a: :Tabularize /:\zs<CR>
 vnoremap <leader>a: :Tabularize /:\zs<CR>
-
 
 " Never jump lines
 map k gk

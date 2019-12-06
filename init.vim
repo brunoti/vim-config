@@ -5,7 +5,7 @@ set encoding=utf-8
 " For a smarter searching
 set ignorecase
 
-" For a smarter tag search
+" for a smarter tag search
 set tagcase=smart
 
 set termguicolors
@@ -60,13 +60,15 @@ set wildignore+=*/**/*.gif*
 set wildignore+=*/**/*.gif*
 set wildignore+=*/docs/**
 
-" autocmd FileType php setl ofu=phpcomplete#CompletePHP
+autocmd FileType php setl ofu=phpcomplete#CompletePHP
 autocmd FileType ruby,eruby setl ofu=rubycomplete#Complete
 autocmd FileType html,xhtml setl ofu=htmlcomplete#CompleteTags
 autocmd FileType c setl ofu=ccomplete#CompleteCpp
 autocmd FileType css setl ofu=csscomplete#CompleteCSS
 autocmd BufRead,BufNewFile *.htm set ft=html.twig
 autocmd BufNewFile,BufRead *.blade.php set filetype=blade.html.php | set syntax=blade
+autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
+autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
 
 " Show all possibilities of completition on cmd
 set wildmenu
@@ -175,7 +177,7 @@ Plug 'junegunn/goyo.vim', { 'on': ['Goyo'] }
 Plug 'duggiefresh/vim-easydir'
 
 " Auto generate my tags while i work
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags', { 'tag': 'v1.0.0' }
 
 " Tabularize is awesome
 Plug 'godlygeek/tabular', { 'on': [ 'Tabularize' ] }
@@ -196,11 +198,9 @@ Plug 'tpope/vim-eunuch'
 
 Plug 'tpope/vim-commentary'
 
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
 
 Plug 'StanAngeloff/php.vim', { 'for': 'php' }
-
-Plug '2072/PHP-Indenting-for-VIm'
 
 Plug 'ap/vim-css-color'
 
@@ -223,9 +223,6 @@ Plug 'nelstrom/vim-visual-star-search'
 
 Plug 'tyrannicaltoucan/vim-quantum'
 
-Plug 'pangloss/vim-javascript'
-  \| Plug 'mxw/vim-jsx'
-
 " A helper for editing files through ssh/ftp
 Plug 'zenbro/mirror.vim'
 
@@ -239,43 +236,25 @@ Plug 'bkad/CamelCaseMotion'
 " '10 lines yanked into register c', when used together with a register.
 Plug 'thalesmello/nvim-better-operator-message'
 
-" Linter and other features for Typescript
-Plug 'Quramy/tsuquyomi'
 
-" Highlights JavaScript's Template Strings in other FileType syntax
-Plug 'Quramy/vim-js-pretty-template'
-
-" Beutifiers for CSS, HTML and Javascript/Json/JSX
-Plug 'maksimr/vim-jsbeautify', {'for': [
-      \  'blade',
-      \  'javascript',
-      \  'html',
-      \  'css',
-      \  'less',
-      \  'scss',
-      \  'jsx',
-      \  'json' ]}
-
-" Elm syntax
 Plug 'lambdatoast/elm.vim'
 
 " Better HTML and HTML5 syntax
 Plug 'othree/html5.vim'
 
-" Typescript syntax
-Plug 'leafgarland/typescript-vim'
-
 Plug 'dietsche/vim-lastplace'
 
 Plug 'terryma/vim-multiple-cursors'
 
-Plug 'ternjs/tern_for_vim'
-
+" Linter and other features for Ts/Js
+Plug 'yuezk/vim-js'
+Plug 'ianks/vim-tsx'
+" Plug 'HerringtonDarkholme/yats.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/denite.nvim'
 
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-
-Plug 'lvht/phpcd.vim', { 'for': 'php', 'do': 'composer install' }
 
 Plug 'lambdalisue/vim-backslash'
 
@@ -297,8 +276,6 @@ Plug 'vim-scripts/smarty-syntax'
 
 Plug 'arnaud-lb/vim-php-namespace', { 'for' : 'php' }
 
-Plug 'stephpy/vim-php-cs-fixer', { 'for' : 'php' }
-
 Plug 'Valloric/MatchTagAlways'
 
 Plug 'milkypostman/vim-togglelist'
@@ -312,29 +289,28 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'venantius/vim-eastwood'
 
 Plug 'guns/vim-clojure-static'
-  \| Plug 'guns/vim-clojure-highlight'
+      \| Plug 'guns/vim-clojure-highlight'
 
-Plug 'kana/vim-textobj-user'
-  \| Plug 'kana/vim-textobj-function'
-  \| Plug	'kana/vim-textobj-line'
-  \| Plug 'coderifous/textobj-word-column.vim'
-  \| Plug 'mattn/vim-textobj-url'
-  \| Plug 'akiyan/vim-textobj-php'
-  \| Plug 'kana/vim-textobj-indent'
-  \| Plug 'adriaanzon/vim-textobj-blade-directive'
-  \| Plug 'sgur/vim-textobj-parameter'
-  \| Plug 'whatyouhide/vim-textobj-xmlattr'
-  \| Plug 'rhysd/vim-textobj-anyblock'
-  \| Plug 'kentaro/vim-textobj-function-php'
-  \| Plug 'thinca/vim-textobj-function-javascript'
-  \| Plug 'saaguero/vim-textobj-pastedtext'
-  \| Plug 'kana/vim-textobj-datetime'
-  " \| Plug 'jasonlong/vim-textobj-css'
 
-Plug 'tommcdo/vim-exchange'
+Plug 'w0rp/ale'
 
-Plug 'Shougo/denite.nvim'
+Plug 'digitaltoad/vim-pug'
 
+Plug 'stephpy/vim-php-cs-fixer'
+Plug 'Jimeno0/vim-chito'
+
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+
+Plug 'kien/ctrlp.vim'
+
+Plug 'wellle/targets.vim'
+
+Plug 'rhysd/vim-grammarous'
+
+Plug 'itchyny/calendar.vim'
+Plug 'beloglazov/vim-online-thesaurus'
+
+Plug 'tpope/vim-fireplace'
 call plug#end()
 
 if has('nvim')
@@ -348,8 +324,6 @@ if has('nvim')
   autocmd TermClose * call feedkeys('<cr>')
 endif
 
-autocmd FileType javascript JsPreTmpl markdown
-
 function! IPhpInsertUse()
   call PhpInsertUse()
   call feedkeys('a',  'n')
@@ -362,22 +336,6 @@ function! IPhpExpandClass()
   call PhpExpandClass()
   call feedkeys('a', 'n')
 endfunction
-
-let g:php_cs_fixer_enable_default_mapping = 0
-
-
-function! ToPhpShortArray()
-  execute '!array-converter -w ' . expand('%')
-  execute 'edit ' . expand('%')
-endfunction
-
-function! CustomPhpCsFixFile()
-  write
-  call ToPhpShortArray()
-  call PhpCsFixerFixFile()
-endfunction
-
-autocmd FileType php nnoremap <silent><C-f> :call CustomPhpCsFixFile()<CR>
 
 nnoremap <C-]> <C-w><C-]><C-w>T
 
@@ -393,7 +351,7 @@ nnoremap <C-C> :CtrlSF
 inoremap <C-C> <esc>:CtrlSF
 
 let g:ctrlsf_populate_qflist = 1
-let g:ctrlsf_position = 'bottom'
+let g:ctrlsf_position = 'left'
 
 nmap <space>k :res -10<CR>
 nmap <space>j :res +10<CR>
@@ -405,6 +363,9 @@ map <C-p> "*p
 
 nmap <C-p> :update<CR>:Niffler ./<CR>
 
+nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
+nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
+
 " Define some single Blade directives. This variable is used for highlighting only.
 let g:blade_custom_directives = []
 
@@ -413,18 +374,16 @@ let g:blade_custom_directives_pairs = {
       \   'shield': 'endshield',
       \ }
 
+" MatchTagAlways
 let g:mta_filetypes = {
-    \ 'html' : 1,
-    \ 'xhtml' : 1,
-    \ 'xml' : 1,
-    \ 'jinja' : 1,
-    \ 'blade' : 1,
-    \ 'php' : 1,
-    \ 'javascript' : 1,
-    \}
-
-let g:jsx_ext_required = 0
-let g:jsx_pragma_required = 0
+      \ 'html' : 1,
+      \ 'xhtml' : 1,
+      \ 'xml' : 1,
+      \ 'jinja' : 1,
+      \ 'blade' : 1,
+      \ 'php' : 1,
+      \ 'javascript' : 1,
+      \}
 
 map <leader>; $a;<esc>
 
@@ -444,4 +403,29 @@ inoremap ? ?<c-g>u
 inoremap , ,<c-g>u
 inoremap ! !<c-g>u
 
+nmap <C-'> vi'y
+nmap <C-"> vi"y
+map <space>gs :Gstatus<cr>
 set completeopt-=preview
+
+let g:php_cs_fixer_php_path="/usr/local/opt/php56/bin/php"
+set guicursor=
+set noerrorbells
+set novisualbell
+set t_vb=
+
+nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
+nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
+
+let g:online_thesaurus_map_keys = 0
+
+nmap <space>cge :GrammarousCheck --lang=en<cr>
+nmap <space>cgb :GrammarousCheck --lang=pt-BR<cr>
+nmap <space>cgo <Plug>(grammarous-open-info-window)
+nmap <space>cgn <Plug>(grammarous-move-to-next-error)
+nmap <space>cgp <Plug>(grammarous-move-to-previous-error)
+nmap <space>cgt :OnlineThesaurusCurrentWord<CR>
+
+nmap <space>m :CtrlPMRUFiles<cr>
+
+let g:nvim_typescript#diagnostics_enable = 0
