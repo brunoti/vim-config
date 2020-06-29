@@ -17,7 +17,7 @@ function! RestoreInterface()
 endfunction
 
 function! ToggleClearInterface()
-  if s:hidden_all  == 0
+  if s:hidden_all == 0
     let s:hidden_all = 1
     call ClearInterface()
   else

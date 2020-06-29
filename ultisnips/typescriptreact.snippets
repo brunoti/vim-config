@@ -1,0 +1,36 @@
+priority -50
+extends javascript
+
+snippet tc "typescript react component" b
+import * as React from 'react';
+import { $1Props } from './types';
+import { getStyles } from './styles';
+
+function ${1:Component}(props: $1Props): React.ReactElement {
+	const styles = getStyles();
+	return (
+		$0
+	);
+}
+
+export { $1 };
+endsnippet
+
+snippet type "typescript type"
+type ${1:Name} = ${2:\{$3\}};
+endsnippet
+
+snippet typer "typescript Readonly type"
+type ${1:Name} = ${2:Readonly<\{$3\}>};
+endsnippet
+
+snippet tstyles "typescript styles" b
+import { Theme, fontSize, spacing } from 'style';
+import { $1Style } from './types';
+
+const getStyles = (theme: Theme): ${1:Component}Style => ({
+	$0
+});
+
+export { getStyles };
+endsnippet

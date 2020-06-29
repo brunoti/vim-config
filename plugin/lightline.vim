@@ -1,7 +1,5 @@
 let g:lightline = {}
-let g:lightline.colorscheme  = 'one'
-" let g:lightline.colorscheme  = 'hybrid'
-" let g:lightline.colorscheme  = 'neodark'
+let g:lightline.colorscheme  = 'simpleblack'
 " let g:lightline.separator    = {'left': '', 'right': '' }
 " let g:lightline.subseparator = { 'left': '', 'right': '' }
 
@@ -14,5 +12,3 @@ let g:lightline.component.gutentags = '%{gutentags#statusline()}'
 let g:lightline.component.fugitive = '%{fugitive#statusline()}'
 
 let g:lightline.active = { 'left' : [ [ 'mode', 'paste' ], ['gitbranch', 'readonly', 'filename', 'modified'], ['tagbar'] ] }
-
-

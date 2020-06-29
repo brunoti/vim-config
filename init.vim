@@ -67,8 +67,8 @@ autocmd FileType c setl ofu=ccomplete#CompleteCpp
 autocmd FileType css setl ofu=csscomplete#CompleteCSS
 autocmd BufRead,BufNewFile *.htm set ft=html.twig
 autocmd BufNewFile,BufRead *.blade.php set filetype=blade.html.php | set syntax=blade
-autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
-autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.tsx
+autocmd BufNewFile,BufRead *.ts setlocal filetype=typescriptreact
+autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescriptreact
 
 " Show all possibilities of completition on cmd
 set wildmenu
@@ -131,6 +131,10 @@ call plug#begin('~/.vim/plugged')
 
 " Hybrid Colorscheme
 Plug 'w0ng/vim-hybrid'
+Plug 'ryanpcmcquen/true-monochrome_vim'
+Plug 'fxn/vim-monochrome'
+Plug 'jdsimcoe/hyper.vim'
+Plug 'atahabaki/archman-vim'
 
 " Nova colors
 Plug 'trevordmiller/nova-vim'
@@ -247,10 +251,8 @@ Plug 'dietsche/vim-lastplace'
 Plug 'terryma/vim-multiple-cursors'
 
 " Linter and other features for Ts/Js
-Plug 'yuezk/vim-js'
-Plug 'ianks/vim-tsx'
-" Plug 'HerringtonDarkholme/yats.vim'
-Plug 'leafgarland/typescript-vim'
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'mhartington/nvim-typescript', { 'do': './install.sh' }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/denite.nvim'
@@ -333,8 +335,8 @@ autocmd FileType php noremap <space>pe :call PhpExpandClass()<CR>
 autocmd FileType php noremap <space>pi :call PhpInsertUse()<CR>
 
 function! IPhpExpandClass()
-  call PhpExpandClass()
   call feedkeys('a', 'n')
+  call PhpExpandClass()
 endfunction
 
 nnoremap <C-]> <C-w><C-]><C-w>T
@@ -347,8 +349,8 @@ let g:toggle_list_no_mappings = 1
 nmap <script> <silent> <space>l :call ToggleLocationList()<CR>
 nmap <script> <silent> <space>q :call ToggleQuickfixList()<CR>
 
-nnoremap <C-C> :CtrlSF
-inoremap <C-C> <esc>:CtrlSF
+nnoremap <C-S-C> :CtrlSF
+inoremap <C-S-C> <esc>:CtrlSF
 
 let g:ctrlsf_populate_qflist = 1
 let g:ctrlsf_position = 'left'
@@ -414,8 +416,8 @@ set noerrorbells
 set novisualbell
 set t_vb=
 
-nnoremap ]e  :<c-u>execute 'move +'. v:count1<cr>
-nnoremap [e  :<c-u>execute 'move -1-'. v:count1<cr>
+nmap [e :<c-u>execute 'move -1-'. v:count1<cr>
+nmap ]e :<c-u>execute 'move +'. v:count1<cr>
 
 let g:online_thesaurus_map_keys = 0
 
@@ -428,4 +430,33 @@ nmap <space>cgt :OnlineThesaurusCurrentWord<CR>
 
 nmap <space>m :CtrlPMRUFiles<cr>
 
+let g:vim_jsx_pretty_disable_tsx= 1
 let g:nvim_typescript#diagnostics_enable = 0
+let g:ale_fixers = {'javascript': ['eslint']}
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\   'typescript': ['eslint', 'tsserver', 'typecheck', 'tslint']
+\}
+let g:ale_javascript_eslint_executable = 'yarn run --silent eslint'
+let g:ale_javascript_eslint_use_global = 0
+let g:ale_fix_on_save = 1
+let g:ale_completion_tsserver_autoimport = 1
+nnoremap ]r :ALENextWrap<CR>
+nnoremap [r :ALEPreviousWrap<CR>
+
+
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d
+  \ denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer><expr> <Space>
+  \ denite#do_map('toggle_select').'j'
+endfunction

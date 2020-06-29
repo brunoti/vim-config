@@ -91,18 +91,6 @@ map <S-W> <Plug>CamelCaseMotion_w
 map <S-B> <Plug>CamelCaseMotion_b
 map <S-E> <Plug>CamelCaseMotion_e
 
-" The beautifier for each file type
-autocmd FileType javascript   noremap  <buffer> <C-f> :call JsBeautify()<CR>
-autocmd FileType json         noremap  <buffer> <C-f> :call JsonBeautify()<CR>
-autocmd FileType jsx          noremap  <buffer> <C-f> :call JsxBeautify()<CR>
-autocmd FileType html         noremap  <buffer> <C-f> :call HtmlBeautify()<CR>
-autocmd FileType css,less,sass noremap  <buffer> <C-f> :call CSSBeautify()<CR>
-autocmd FileType javascript   vnoremap <buffer> <C-f> :call RangeJsBeautify()<CR>gv
-autocmd FileType json         vnoremap <buffer> <C-f> :call RangeJsonBeautify()<CR>gv
-autocmd FileType jsx          vnoremap <buffer> <C-f> :call RangeJsxBeautify()<CR>gv
-autocmd FileType html         vnoremap <buffer> <C-f> :call RangeHtmlBeautify()<CR>gv
-autocmd FileType css          vnoremap <buffer> <C-f> :call RangeCSSBeautify()<CR>gv
-
 " Indent and keep selection
 vmap = =gv
 
@@ -121,8 +109,3 @@ map j gj
 " Toggle dark/light option of the current colorscheme
 call togglebg#map("<F5>")
 
-" ----------------------------------------------------------------------------
-" Buffers
-" ----------------------------------------------------------------------------
-nnoremap ]b :bnext<cr>
-nnoremap [b :bprev<cr>
